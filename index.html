@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagining Progress</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
+
+    <style>
+        body {
+            background-color: #ffe735;
+            color: #222;
+            font-family: sans-serif;
+            line-height: 1.5;
+        }
+        
+        header {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #canvas {
+            position: relative;
+        }
+        .action-figure {
+            position: absolute;
+            transform: scale(.8);
+            top: -31px;
+            left: 134px;
+            cursor: move;
+            touch-action: none;
+        }
+        #palette {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .pose {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5px;
+            height: 200px;
+            width: 150px;
+            text-align: center;
+            padding: 5px;
+        }
+        .pose img {
+            cursor: pointer;
+            filter: blur(5px);
+        }
+        .pose:last-of-type {
+            margin-right: 0;
+        }
+        .pose img {
+            vertical-align: middle;
+            max-width:100%;
+            max-height:100%;
+        }
+
+        .pose img:hover, .pose.active img {
+            filter: blur(0);
+        }
+    </style>
+</head>
+<body>
+    <header class="mw6 center">
+        <h1>
+            Imagining Progress
+        </h1>
+        <p>
+            Move Harry around to whichever point in the climb he needs to be at, then take a screenshot to <em>document progress</em>. <br>
+            Choose from 4 dynamic and useful poses!
+        </p>
+    </header>
+    <div class="wrapper mw6 center pa3 pb5">
+        <!-- <canvas id="canvas" class="w-100 bg-white" ></canvas> -->
+        <!-- 480 x 600 -->
+        <div id="canvas">
+            <img class="w-100 bg-white" src="theclimbinquestion.png"/>
+            <img class="action-figure" src="poses/01_dithered.png"/>
+        </div>
+        <div id="palette">
+            <div class="pose active">
+                <img src="poses/01_dithered.png" alt="">
+            </div>
+            <div class="pose">
+                <img src="poses/02_dithered.png" alt="">
+            </div>
+            <div class="pose">
+                <img src="poses/03_dithered.png" alt="">
+            </div>
+            <div class="pose">
+                <img src="poses/04_dithered.png" alt="">
+            </div>
+       </div>
+    </div>
+    <script type="module">
+        import interact from 
+        'https://cdn.interactjs.io/v1.10.11/interactjs/index.js'
+        
+        function init(){
+            const af = document.querySelector(".action-figure");
+            const poses = [...document.querySelectorAll(".pose")];
+        
+            interact('.action-figure').draggable({
+                listeners: {
+                    move: dragMoveListener,
+                }
+            })
+            function dragMoveListener (event) {
+                var target = event.target
+                // keep the dragged position in the data-x/data-y attributes
+                var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+                var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+                // translate the element
+                target.style.transform = 'translate(' + x + 'px, ' + y + 'px) scale(.8)'
+
+                // update the posiion attributes
+                target.setAttribute('data-x', x)
+                target.setAttribute('data-y', y)
+            }
+
+
+            document.querySelector("#palette").addEventListener("click", (e) => {
+                poses.forEach((pp) => pp.classList.remove("active"));
+                if(e.target.src){
+                    af.src = e.target.src;
+                    e.target.parentNode.classList.add("active");
+                }
+            })
+        }
+
+        init();
+    </script>
+</body>
+</html>
