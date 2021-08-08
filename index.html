@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imagining Progress</title>
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
-
+    <link rel="icon" 
+      type="image/png" href="favicon.ico" />
     <style>
         body {
             background-color: #ffe735;
@@ -21,6 +22,15 @@
             text-align: center;
         }
 
+        header a {
+          color: black;
+          font-style: italic;
+        }
+      
+        header a:hover, header a:visited {
+          color: #4499ff;
+        }
+      
         #canvas {
             position: relative;
         }
@@ -71,7 +81,7 @@
             Imagining Progress
         </h1>
         <p>
-            Move Lee Shang Lun around to whichever point in the climb he needs to be at, then take a screenshot to <em>document progress</em>. <br>
+            Move Lee Shang Lun around to whichever point in the climb he needs to be at, then take a screenshot to <a target="_blank" href="https://www.instagram.com/documentprogress" >document progress</a>. <br>
             Choose from 4 dynamic and useful poses!
         </p>
     </header>
@@ -97,6 +107,9 @@
             </div>
        </div>
     </div>
+    <footer class="w-100 tc pb5">
+     <a class="dib w5" href="https://glitch.com/edit/#!/remix/imagining-progress"><img src="https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button-v2.svg" alt="Remix on Glitch" /></a>
+    </footer> 
     <script type="module">
         import interact from 
         'https://cdn.interactjs.io/v1.10.11/interactjs/index.js'
